@@ -1,0 +1,121 @@
+:root{
+    --primary-bg: #0372EB;
+    --primary-color: white;
+    --theme-bg: #0C232A;
+    --theme-color: #D9E5E9;
+}
+body{ 
+    margin:0;
+    padding:0;
+    background-color:lightgray;
+    display:flex;
+    overflow: hidden;
+    font-family: 'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+
+}
+
+canvas{
+    /* margin:50px; */
+    margin:auto;
+    background-color: white;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4); */
+}
+
+.toolbar{
+    user-select: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    /* position: fixed; */
+    top:0;
+    width:15vw;
+    height: 100vh;
+    /* display: flex;
+    flex-direction: column; */
+    background-color:var(--theme-bg);
+
+    min-height: 10vh;
+    /* border:1px solid rgba(0, 0, 0, 0.1); */
+    padding:0;
+    margin:0px;
+}
+
+.toolbar > div{
+    /* width:10%; */
+    /* padding:10%; */
+    /* padding:0px 5vh; */
+    /* margin:0px 50px; */
+    color:var(--theme-color);
+    text-align: center;
+    justify-content: center;
+
+}
+
+/* .toolbar > div:hover{
+    background-color:rgba(0, 0, 0, 0.1);
+} */
+
+.lines{
+    cursor: pointer;
+    /* margin:5px; */
+    padding:10px;
+}
+
+.lines:hover{
+    background-color:rgba(0, 0, 0, 0.3)
+    /* filter:brightness(1.4); */
+    /* background-color:rgba(0, 0, 0, 0.1); */
+}
+
+.columns{
+    display:flex;
+    flex-direction: column;
+}
+
+.rows{
+    display:flex;
+}
+
+.menu-title{ 
+    margin:0;
+    /* margin:15px 0px 0px 0px; */
+    background-color:var(--theme-bg);
+    color:var(--primary-color);
+    padding:10px 0px;
+    text-align: left;
+    padding:7%;
+    justify-content: stretch;
+}
+
+.menu-title > span{
+    color:lightgray
+}
+
+.menu-title:hover{
+    filter:brightness(1.6);
+}
+.menu > div{ 
+    border-bottom:1px solid rgba(0, 0, 0, 0.6);
+
+}
+.sumador{ 
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+    padding:10px;
+}
+
+.sumador span{ 
+    padding:5px;
+}
+.sumador span:last-child,
+.sumador span:first-child{
+    cursor: pointer;
+}
+.sumador span:last-child:hover,
+.sumador span:first-child:hover{
+    background-color:rgba(0, 0, 0, 0.1); 
+}
+
+.inline > div{ 
+    float:left;
+    width:25%;
+}

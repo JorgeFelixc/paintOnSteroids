@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Fake paint</title>
+</head>
+<body>
+    <menu type="toolbar" class="toolbar">
+        
+
+
+        <div class="columns menu">
+            <div>
+                <p class="menu-title">
+                    Figuras
+                    <br/>
+                    <span>Aqui seleccionas tus figuras</span>
+                </p>
+                <div class="inline">
+    
+                    <div class="lines" onclick="SetPencil(basico)">
+                        basico
+                    </div>
+                    <div class="lines" onclick="SetPencil(dda)">
+                        dda
+                    </div>
+    
+    
+                    <div class="lines" onclick="SetPencil(BresenhamPencil)">
+                        bresenHam
+                    </div>
+                    <div class="lines" onclick="SetPencil(rectangulo)">
+                        rectangulo
+                    </div>
+    
+                    <div class="lines" onclick="SetPencil(triangulo)">
+                        triangulo
+                    </div>
+    
+    
+                </div>
+            </div>
+
+            <div>
+                <p class="menu-title">
+                    Tipo lapiz
+                    <br>
+                    <span>Aqui elijes el lapiz</span>
+                </p >
+                <div class="inline">
+                    <div class="lines" onclick="SetPencil(DrawPoint)">
+                        Lapiz
+                    </div>
+                    <div class="lines" onclick="SetPencil(null)">
+                        Cursor
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p class="menu-title">
+                    Lapiz Config
+                    <br>
+                    <span>Aqui elijes el lapiz</span>
+                </p>
+                <div class="columns">
+                    <div class="lines" onclick="TypeDraw='Rect'">Cuadrado</div >
+                    <div class="lines" onclick="TypeDraw='Circ'">Circulo</div>
+                    <div class="sumador">
+                        <span>-</span>
+                        <span>1</span>
+                        <span>+</span>
+                    </div>
+    
+                </div>
+            </div>
+            
+
+
+        </div>
+
+    </menu>
+    <script src="script/Utils.js"></script>
+    <script src="./script/pointers/Lines.js"></script>
+    <script src="./script/main.js"></script>
+</body>
+</html>
