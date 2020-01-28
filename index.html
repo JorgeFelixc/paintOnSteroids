@@ -13,8 +13,8 @@
 
 
         <div class="columns menu">
-            <div>
-                <p class="menu-title">
+            <div >
+                <p onclick="ToggleClass(this.parentNode, 'show-menu')"  class="menu-title">
                     Figuras
                     <br/>
                     <span>Aqui seleccionas tus figuras</span>
@@ -39,13 +39,19 @@
                     <div class="lines" onclick="SetPencil(triangulo)">
                         triangulo
                     </div>
+
+                    <div class="lines" onclick="SetPencil(circle)">
+                        circulo
+                    </div>
+
+    
     
     
                 </div>
             </div>
 
             <div>
-                <p class="menu-title">
+                <p onclick="ToggleClass(this.parentNode, 'show-menu')" class="menu-title">
                     Tipo lapiz
                     <br>
                     <span>Aqui elijes el lapiz</span>
@@ -61,7 +67,7 @@
             </div>
 
             <div>
-                <p class="menu-title">
+                <p onclick="ToggleClass(this.parentNode, 'show-menu')" class="menu-title">
                     Lapiz Config
                     <br>
                     <span>Aqui elijes el lapiz</span>
@@ -78,11 +84,30 @@
                 </div>
             </div>
             
+            <div class="lapices rows">
+                <p onclick="SetPencil(DrawPoint)">
+                    Lapiz
+                </p>
+                <p onclick="SetPencil(null)">
+                    Cursor
+                </p>
+            </div>
+            <div class="colores">
+                <div id="colorUno" tabindex="10" class="color-picker" >
 
+
+                </div>
+                <div id="colorDos" tabindex="11"  class="color-picker">
+
+                    
+                </div>
+                Elije tu color
+            </div</div>>
 
         </div>
 
     </menu>
+    <script src="./script/Colors.js"></script>
     <script src="script/Utils.js"></script>
     <script src="./script/pointers/Lines.js"></script>
     <script src="./script/main.js"></script>

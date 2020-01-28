@@ -112,7 +112,7 @@ function rectangulo(x1,y1,x2,y2){
 
 function triangulo(x1,y1,x2,y2){ 
     dda(x2,y2, x1,y2);
-    const middle= x1 + ((x2 - x1)/2)
+    const middle= x1 + ((x2 - x1)/2);
     dda(x2,y2, middle, y1);
     dda(x1,y2, middle, y1);
 }
@@ -144,4 +144,40 @@ function selection(x1,y1,x2,y2){
     ctx.closePath();
     ctx.restore();
     // rectangulo(x1,y1,
+}
+
+function circleFeo(x1,y1,x2,y2){
+    let xpos =  x1 + ((x2 - x1)/2);
+    let ypos =  y1 + ((y2 - y1)/2);
+    let r = x2 -x1;
+
+    for(var i=0;i<360;i+=2){
+        let x = xpos + r * Math.cos(i);
+        let y = ypos + r * Math.sin(i);
+        let xdos = xpos + r * Math.cos(i+1);
+        let ydos = ypos + r * Math.sin(i+1);
+
+        dda(x,y,xdos, ydos);
+    }
+}
+
+function circle(x1,y1,x2,y2){ 
+    let xpos =  x1 + ((x2 - x1)/2);
+    let ypos =  y1 + ((y2 - y1)/2);
+    let r = x2 -x1;
+    for(var i=0;i<360;i++){
+        let x = xpos + r * Math.cos(i * Math.PI / 180);
+        let y = ypos + r * Math.sin(i * Math.PI / 180);
+        let xdos = xpos + r * Math.cos((i+1) * Math.PI / 180);
+        let ydos = ypos + r * Math.sin((i+1) * Math.PI / 180);
+
+        dda(x,y, xdos,ydos);
+        // DrawPoint(xdos,ydos);
+    }
+
+
+}
+
+function ellipse(x1,y1,x2,y2){
+    
 }
