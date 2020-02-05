@@ -1,40 +1,41 @@
 
-const width = window.innerWidth -500 ;
-const height = window.innerHeight ;
-const canvas = document.createElement('canvas');
-canvas.width = width;
-canvas.height = height
-canvas.oncontextmenu = (ev) => { 
-    return false;
-}
 canvas.addEventListener("click", DetectFigure);
-document.body.appendChild(canvas);
-
-const ctx = canvas.getContext("2d");
-var currentPencil;
-
-let figures = [];
-
+const startMovement = (e) => { 
+    attatchFigure(resultantFigure,e);
+}
 
 function SetPencil(pencilReference){
     if(currentPencil){
         canvas.removeEventListener('mousedown', currentPencil);
     }
 
+    if(canvasBuffer){
+        ctx.putImageData(canvasBuffer,0,0);
+        canvasBuffer =null;
+    }
+
     if(pencilReference === null){
+        currentPencil = null;
         return;
     }
     
-
     currentPencil = (ev) => {
         ev.preventDefault();
         const xpos = ev.offsetX;
         const ypos = ev.offsetY;
-        let canvasData;
+        xold = xpos;
+        yold = ypos;
+
+        if(ev.which == 3){
+            ctx.fillStyle = GetHSLText(secondColor);
+        }else{ 
+            ctx.fillStyle = GetHSLText(firstColor);
+        }
+
         if(pencilReference.length === 2){
             pencilReference(xpos,ypos);
         }else{ 
-            canvasData = ctx.getImageData(0,0,width,height);
+            canvasBuffer = ctx.getImageData(0,0,width,height);
         }
         
         const movementBuffer = ( event) => { 
@@ -45,10 +46,12 @@ function SetPencil(pencilReference){
 
             }else{
                 // ctx.clearRect(0,0,width,height);
-                ctx.putImageData(canvasData,0,0);
+                ctx.putImageData(canvasBuffer,0,0);
                 pencilReference(xpos, ypos, event.offsetX, event.offsetY);
 
             }
+            xold = event.offsetX;
+            yold = event.offsetY;
             
         };
 
@@ -60,18 +63,21 @@ function SetPencil(pencilReference){
             e.preventDefault();
             removeEvents(e);
             canvas.removeEventListener("mouseup", removeUp);
-            if(canvasData && pencilReference !== null){ 
+            if(canvasBuffer && pencilReference !== null){ 
                 let figureSchema = {
                     figureType: 'line',
                     x1: xpos,
                     y1: ypos,
                     x2: event.offsetX,
                     y2: event.offsetY,
-                    z:1,
+                    z:figures.length,
+                    draw: pencilReference,
+                    pointReference: new Path2D(),
                     selected: false
                 }
 
                 figures.push(figureSchema);
+                canvasBuffer = null;
             }
         }
 
@@ -82,9 +88,6 @@ function SetPencil(pencilReference){
     canvas.addEventListener('mousedown', currentPencil);
 }
 
-
-
-
 function DetectFigure(event){
     let x = event.offsetX,
     y = event.offsetY;
@@ -93,34 +96,129 @@ function DetectFigure(event){
             return true;
         }
     });
+
+    if(currentPencil !== null){
+        return;
+    }
     
+    if(!canvasBuffer ){
+        canvasBuffer = ctx.getImageData(0,0,width,height);
+    }
+
     if(figure.length > 0){
         ctx.save();
-        const { x1,x2,y1,y2} = figure[0];
+        resultantFigure = null;
+        figure.forEach((item) =>{ 
+            if(resultantFigure){
+                if(resultantFigure.z < item.z){
+                    resultantFigure = item;
+                }
+            }else{
+                resultantFigure = item;
+            }
+        })
 
-        if(figure[0].figureType == "line"){ 
-            ctx.save();
-            ctx.fillStyle = "#FFFFFF";
-            ctx.beginPath();
-            ctx.moveTo(x1,y1);
-            ctx.rect(x1-WeigthDraw/2,y1-WeigthDraw/2,8,8);
-            ctx.fill();
-            ctx.stroke();
-            ctx.moveTo(x2,y2);
-            ctx.rect(x2-WeigthDraw/2,y2-WeigthDraw/2,8,8);
-            ctx.fill();
-            ctx.stroke();
-            ctx.closePath();
-            ctx.restore();
-        }else{
-            selection(x1,y1,x2,y2);
+        const { x1,x2,y1,y2} = resultantFigure;
+        ctx.putImageData(canvasBuffer,0,0);
+        selection(x1,y1,x2,y2);
+
+        canvas.addEventListener("mousemove", startMovement);
+        // canvasBuffer = null;
             // rectangulo(x1,y1,x2,y2);
-        }
 
+    }else{
+        canvas.removeEventListener("mousemove", startMovement)
+        ctx.putImageData(canvasBuffer,0,0);
+        canvasBuffer = null;
     }
+
+
 
     console.log("ITEM!!!!!!!", figure);
 }
 
 
+function attatchFigure(figure,e){
+    const {x1,x2,y1,y2 } = figure;
 
+    e.preventDefault();
+    e.stopPropagation();
+    let mousex = e.offsetX;
+    let mousey = e.offsetY;
+    let typeCursor;
+
+    if((mousex > x1 && mousex < x2) && (mousey > y1 && mousey < y2)){
+        typeCursor = "resize";
+        if(mousex - x1 < 10 ){
+            canvas.style.cursor = "nwse-resize";
+        }
+        else if(x2 -mousex < 10){
+            canvas.style.cursor = "nesw-resize";
+        }
+        else{ 
+            canvas.style.cursor = "move";
+            typeCursor = "move";
+        }
+        
+        InitToolsFigure(typeCursor);
+    }else{ 
+        canvas.style.cursor = "default";
+
+    }
+
+    
+
+
+}
+
+
+function InitToolsFigure(typeCursor){
+    let injectedMethod;
+    const figureClick = (e) =>{
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(typeCursor == "resize"){
+            injectedMethod = ResizeFigure;
+        }
+        else{
+            injectedMethod = MoveFigure;
+        }
+
+        canvas.addEventListener("mousemove", figureMove);
+    }
+
+    const figureMove = (e) =>{
+        e.preventDefault();
+        e.stopPropagation();
+
+        injectedMethod(e);
+    }
+
+
+
+
+    canvas.addEventListener("mousedown", figureClick);
+    canvas.addEventListener("mouseup", (e) =>{ 
+        canvas.removeEventListener("mousedown", figureClick);
+        canvas.removeEventListener("mousemove", figureMove);
+    });
+}
+
+function MoveFigure(e){
+    console.log("move",e.offsetX);
+    const { x1,x2,y1,y2,draw} = resultantFigure
+    // draw(x1,y1,x2,y2);}
+    let xone = x1 + (e.offsetX - x1);
+    let yone = y1 + (e.offsetY - y1);
+    let xdos = x2 + (e.offsetX - x2);
+    let ydos = y2 + (e.offsetY - y2);
+    draw(xone,yone, x2 ,y2);
+}
+
+
+function ResizeFigure(e){
+    console.log("resize",e.offsetX);
+}
+
+SetPencil(Lapiz);

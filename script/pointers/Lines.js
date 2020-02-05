@@ -121,28 +121,43 @@ function selection(x1,y1,x2,y2){
     console.log("voy a pintar?");
     ctx.save();
 
-    ctx.fillStyle = "#FF0000";
+    ctx.fillStyle = "#FFFFFF";
+    
     ctx.beginPath();
     ctx.moveTo(x1,y1);
-    ctx.rect(x1,y1,2,2);
+    ctx.rect(x1,y1,8,8);
+    ctx.fill()
     ctx.stroke();
     ctx.closePath();
 
 
     ctx.moveTo(x2,y1);
-    ctx.rect(x1,y1,2,2);
+    ctx.rect(x2-8,y1,8,8);
+    ctx.fill();
     ctx.stroke();
 
     ctx.moveTo(x1,y2);
-    ctx.rect(x1,y1,2,2);
+    ctx.rect(x1,y2-8,8,8);
+    ctx.fill();
     ctx.stroke();
 
+
     ctx.moveTo(x2,y2);
-    ctx.rect(x1,y1,2,2);
+    ctx.rect(x2-8,y2-8,8,8);
+    ctx.fill();
     ctx.stroke();
+
+
+
 
     ctx.closePath();
     ctx.restore();
+
+    // ctx.beginPath();
+    // ctx.moveTo(x1,y1);
+    // ctx.lineTo(x2,y2);
+    // ctx.stroke();
+    // ctx.closePath();
     // rectangulo(x1,y1,
 }
 
@@ -164,7 +179,16 @@ function circleFeo(x1,y1,x2,y2){
 function circle(x1,y1,x2,y2){ 
     let xpos =  x1 + ((x2 - x1)/2);
     let ypos =  y1 + ((y2 - y1)/2);
-    let r = x2 -x1;
+    // DrawPoint(xpos,ypos);
+    let ry = (x2 -x1)/2;
+    let rx = (y2 -y1)/2;
+    let r;
+    if(rx < ry){ 
+        r = rx;
+    }else{
+        r = ry;
+    }
+    
     for(var i=0;i<360;i++){
         let x = xpos + r * Math.cos(i * Math.PI / 180);
         let y = ypos + r * Math.sin(i * Math.PI / 180);
@@ -180,4 +204,8 @@ function circle(x1,y1,x2,y2){
 
 function ellipse(x1,y1,x2,y2){
     
+}
+
+function Lapiz(x1,y2){
+    dda(xold,yold,x1,y2);
 }

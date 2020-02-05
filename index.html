@@ -75,23 +75,28 @@
                 <div class="columns">
                     <div class="lines" onclick="TypeDraw='Rect'">Cuadrado</div >
                     <div class="lines" onclick="TypeDraw='Circ'">Circulo</div>
-                    <div class="sumador">
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
-                    </div>
-    
+
                 </div>
             </div>
             
             <div class="lapices rows">
-                <p onclick="SetPencil(DrawPoint)">
+                <p onclick="SetPencil(Lapiz)">
                     Lapiz
                 </p>
                 <p onclick="SetPencil(null)">
                     Cursor
                 </p>
             </div>
+
+            <div >
+                <div class="sumador">
+                    <span onclick="AddWeigth()" id="stroke-min">-</span>
+                    <span id="stroke-width">1</span>
+                    <span onclick="RemWeigth()" id="stroke-max">+</span>
+                </div>
+
+            </div>
+
             <div class="colores">
                 <div id="colorUno" tabindex="10" class="color-picker" >
 
@@ -107,6 +112,7 @@
         </div>
 
     </menu>
+    <script src="./script/Global.js"></script>
     <script src="./script/Colors.js"></script>
     <script src="script/Utils.js"></script>
     <script src="./script/pointers/Lines.js"></script>

@@ -1,6 +1,7 @@
 :root{
     --primary-bg: #0372EB;
     --primary-color: white;
+    /* --theme-bg: hsl(35 0, 93.78378378378379%, 12.432432432432433%); */
     --theme-bg: #0C232A;
     --theme-color: #D9E5E9;
 }
@@ -136,10 +137,16 @@ canvas{
     overflow: hidden;
 }
 
+.lapices ~ div,
+.lapices{
+    background-color:rgba(0, 0, 0, 0.7) !important;
+
+}
+
 .lapices{
     margin-top:auto;
     justify-content: space-around;    
-    background-color:rgba(0, 0, 0, 0.7) !important;
+    /* background-color:rgba(0, 0, 0, 0.7) !important; */
     padding:5px;
     transition: 0.3s all cubic-bezier(0.6, 0.04, 0.98, 0.335);
 }
@@ -160,7 +167,7 @@ canvas{
     vertical-align: middle;
     align-items: center;
     /* justify-content: center; */
-    background-color:rgba(0, 0, 0, 0.7) !important;
+    /* background-color:rgba(0, 0, 0, 0.7) !important; */
 
     /* justify-content: space-between; */
 }
@@ -184,16 +191,16 @@ canvas{
 
 #colorDos:hover,
 #colorUno:hover{ 
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
 }
 
 
 
 #colorUno{ 
-    background-color:black;
+    background-color:red;
 }
 #colorDos{
-    background-color:white;
+    background-color:red;
 }
 
 .color-box{
@@ -217,7 +224,7 @@ canvas{
     border-radius: 2px;
     width:360px;
     height: 360px;
-    background-color:steelblue;
+    background-color:red;
     height: 100%;
     position: relative;
 }
@@ -298,4 +305,8 @@ canvas{
     left:initial;
     right:-630px;
 
+}
+
+.colors{
+    background-color:red;
 }

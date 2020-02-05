@@ -1,16 +1,4 @@
-let TypeDraw = "Rect";
-let WeigthDraw = 10;
-let firstColor = {
-    h:0,
-    s:100,
-    l:50,
-};
-let secondColor = {
-    h:0,
-    s:100,
-    l:50,
-};
-let h = 0;
+
 
 function DrawPoint(x1,y1){
     ctx.beginPath();
@@ -18,18 +6,17 @@ function DrawPoint(x1,y1){
     if(TypeDraw === "Rect"){
         ctx.fillRect(x1-(WeigthDraw/2),y1-(WeigthDraw/2),WeigthDraw,WeigthDraw);
         ctx.fill();
-        ctx.stroke();
+        // ctx.stroke();
     }
     else if(TypeDraw === "Circ"){ 
         ctx.ellipse(x1,y1,WeigthDraw/2,WeigthDraw/2, Math.PI /4,0,2*Math.PI);
         ctx.fill()
-        ctx.stroke();
+        // ctx.stroke();
 
     }
     ctx.closePath();
 
 }
-
 
 function ToggleClass(id, clase){ 
     let dom_el = id;
@@ -133,23 +120,33 @@ function OpenColors(id, colorVariable, divColor){
        const { h,s,l } = color;
        let colorText = `hsl(${h}, ${s}%, ${l}%)`;
        domElement.style.backgroundColor =colorText;
+       ctx.fillStyle = GetHSLText(color);
    }
    
    
-   SetColor(firstColor, colors);
-   SetColor(firstColor, currentColor);
+//    SetColor(colorVariable, colors);
+//    SetColor(colorVariable, currentColor);
+   SetColor(colorVariable, dom_Color);
+
+}
+
+const AddWeigth = () => {
+    if(WeigthDraw > 1){
+        WeigthDraw--;
+        dom_weight.innerHTML = WeigthDraw;
+    }
+}
+
+const RemWeigth = ()  => {
+    WeigthDraw++;
+    dom_weight.innerHTML = WeigthDraw;
+}
+
+
+function RedrawAll(){
 
 }
 
 OpenColors('colorUno', firstColor , 'colorUno');
 OpenColors('colorDos', secondColor ,'colorDos')
 
-
-
-// let observer = new MutationObserver(
-
-//     (mutations, observers) => { 
-//         console.log("Cambie", observer);
-//     });
-
-// observer.observe(firstColor,{ });
